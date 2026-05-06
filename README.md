@@ -65,16 +65,19 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ### Frontend (Flutter)
 
-1. Install dependencies:
+1. Enter the frontend project:
 
 ```bash
 cd frontend
+```
 
-if first time run
+2. Install dependencies on first run:
+
+```bash
 flutter pub get
 ```
 
-2. Run the app:
+3. Run the app:
 
 ```bash
 flutter run -d chrome --release
