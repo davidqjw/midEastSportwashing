@@ -70,6 +70,20 @@
       ]
     },
     {
+      "id": "doha-world-athletics-2019",
+      "title": "Doha World Athletics Championships",
+      "date": "2019-09-27",
+      "category": "athletics",
+      "country": "Qatar",
+      "description": "Doha hosted the 2019 World Athletics Championships at Khalifa International Stadium, marking the first time the competition was held in the Middle East. The event brought elite track and field athletes from around the world to Qatar and became part of the country's broader strategy to position itself as a major global sports hub before the 2022 FIFA World Cup.",
+      "impact_analysis": "The championships gave Qatar another high-profile global sports platform, but also drew criticism from human rights organizations over migrant worker abuses and labor conditions connected to the country's rapid sports infrastructure development. The event highlighted how Qatar used major international competitions to build visibility, legitimacy, and soft power while facing scrutiny over the workers who made those events possible.",
+      "image_url": "/static/image/doha_world_athletics_2019/cover.jpg",
+      "related_events": [
+        "psg-takeover-2011",
+        "qatar-world-cup-2022"
+      ]
+    },
+    {
       "id": "newcastle-takeover-2021",
       "title": "Saudi Public Investment Fund Acquires Newcastle United",
       "date": "2021-10-07",
@@ -135,6 +149,21 @@
       "related_events": [
         "newcastle-takeover-2021",
         "liv-golf-launch-2022"
+      ]
+    },
+    {
+      "id": "saudi-world-cup-2034-host-2024",
+      "title": "Saudi Arabia Host 2034 FIFA World Cup",
+      "date": "2024-12-11",
+      "category": "soccer",
+      "country": "Saudi Arabia",
+      "description": "FIFA officially confirmed Saudi Arabia as the host of the 2034 FIFA World Cup at an Extraordinary FIFA Congress. Saudi Arabia had been the only bidder after announcing its intention to host in October 2023 and submitting its formal bid documents during the accelerated bidding process.",
+      "impact_analysis": "The confirmation marked Saudi Arabia's largest football hosting achievement and a major milestone in its Vision 2030 sports strategy. Human rights organizations criticized the process and warned that the tournament could become another major sportswashing platform, raising concerns about migrant labor, freedom of expression, and gender equality. The event extends the region's use of global football tournaments as tools for visibility, tourism, and soft power after Qatar 2022.",
+      "image_url": "/static/image/saudi_world_cup_2034_host_2024/cover.jpg",
+      "related_events": [
+        "qatar-world-cup-2022",
+        "saudi-pro-league-2023",
+        "saudi-f1-gp-2021"
       ]
     }
   ]

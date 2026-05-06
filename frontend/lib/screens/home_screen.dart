@@ -13,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ItemScrollController _itemScrollController = ItemScrollController();
+  final ItemPositionsListener _itemPositionsListener = ItemPositionsListener.create();
+  int _activeYearIndex = 0;
 
   @override
   void initState() {
@@ -20,6 +22,28 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<EventProvider>().loadEvents();
     });
+    _itemPositionsListener.itemPositions.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _itemPositionsListener.itemPositions.removeListener(_onScroll);
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final positions = _itemPositionsListener.itemPositions.value;
+    if (positions.isEmpty) return;
+    final mostVisible = positions.reduce((a, b) {
+      final aVisible = a.itemTrailingEdge.clamp(0.0, 1.0) - a.itemLeadingEdge.clamp(0.0, 1.0);
+      final bVisible = b.itemTrailingEdge.clamp(0.0, 1.0) - b.itemLeadingEdge.clamp(0.0, 1.0);
+      return aVisible >= bVisible ? a : b;
+    });
+    if (mostVisible.index != _activeYearIndex) {
+      setState(() {
+        _activeYearIndex = mostVisible.index;
+      });
+    }
   }
 
   void _scrollToYear(int year, List<int> sortedYears) {
@@ -41,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
           'Arab Sportswashing Timeline',
           style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFF0A0E27),
+        backgroundColor: const Color(0xFF0B0E14),
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: false,
@@ -50,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, provider, child) {
           if (provider.isLoading) {
             return const Center(
-              child: CircularProgressIndicator(color: Colors.blue),
+              child: CircularProgressIndicator(color: Color(0xFFEAB308)),
             );
           }
 
@@ -68,14 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 8),
                   Text(
                     provider.error!,
-                    style: const TextStyle(color: Colors.grey),
+                    style: const TextStyle(color: Color(0xFF9CA3AF)),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => provider.loadEvents(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue[400],
+                      backgroundColor: const Color(0xFFEAB308),
                     ),
                     child: const Text('Retry'),
                   ),
@@ -92,26 +116,58 @@ class _HomeScreenState extends State<HomeScreen> {
               // Left sidebar - year buttons
               Container(
                 width: 80,
-                color: const Color(0xFF0F1429),
+                color: const Color(0xFF0B0E14),
                 child: ListView(
                   padding: const EdgeInsets.symmetric(vertical: 16),
-                  children: sortedYears.map((year) {
+                  children: sortedYears.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final year = entry.value;
+                    final isActive = index == _activeYearIndex;
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                      child: ElevatedButton(
-                        onPressed: () => _scrollToYear(year, sortedYears),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF1A1F3A),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: Colors.grey[700]!, width: 1),
+                      child: AnimatedScale(
+                        scale: isActive ? 1.15 : 1.0,
+                        duration: const Duration(milliseconds: 150),
+                        child: AnimatedOpacity(
+                          opacity: isActive ? 1.0 : 0.5,
+                          duration: const Duration(milliseconds: 150),
+                          child: Container(
+                            decoration: isActive
+                                ? BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: const Color(0xFFEAB308).withOpacity(0.6),
+                                        blurRadius: 12,
+                                        spreadRadius: 1,
+                                      ),
+                                    ],
+                                  )
+                                : null,
+                            child: ElevatedButton(
+                              onPressed: () => _scrollToYear(year, sortedYears),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF171C26),
+                                foregroundColor: isActive ? const Color(0xFFEAB308) : Colors.white,
+                                padding: const EdgeInsets.symmetric(vertical: 12),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: BorderSide(
+                                    color: isActive ? const Color(0xFFEAB308) : const Color(0xFF2A3040),
+                                    width: isActive ? 2 : 1,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                year.toString(),
+                                style: TextStyle(
+                                  fontSize: isActive ? 14 : 13,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          year.toString(),
-                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                         ),
                       ),
                     );
@@ -122,6 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: ScrollablePositionedList.builder(
                   itemScrollController: _itemScrollController,
+                  itemPositionsListener: _itemPositionsListener,
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 40),
                   itemCount: sortedYears.length,
                   itemBuilder: (context, index) {
@@ -141,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                                     decoration: BoxDecoration(
-                                      color: Colors.blue[800],
+                                      color: const Color(0xFFEAB308),
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
@@ -149,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       style: const TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                        color: Color(0xFF0B0E14),
                                       ),
                                     ),
                                   ),
@@ -157,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Expanded(
                                     child: Container(
                                       height: 2,
-                                      color: Colors.grey[800],
+                                      color: const Color(0xFF2A3040),
                                     ),
                                   ),
                                 ],

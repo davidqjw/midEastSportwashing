@@ -37,7 +37,7 @@ class EventDetailCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF1A1F3A),
+        color: const Color(0xFF171C26),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -58,7 +58,7 @@ class EventDetailCard extends StatelessWidget {
                   event.title,
                   style: const TextStyle(
                     fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w900,
                     color: Colors.white,
                   ),
                 ),
@@ -84,18 +84,18 @@ class EventDetailCard extends StatelessWidget {
           // Date and country
           Row(
             children: [
-              Icon(Icons.calendar_today, size: 16, color: Colors.grey[400]),
+              const Icon(Icons.calendar_today, size: 16, color: Color(0xFF9CA3AF)),
               const SizedBox(width: 4),
               SelectableText(
                 event.date,
-                style: TextStyle(color: Colors.grey[400]),
+                style: const TextStyle(color: Color(0xFF9CA3AF)),
               ),
               const SizedBox(width: 16),
-              Icon(Icons.location_on, size: 16, color: Colors.grey[400]),
+              const Icon(Icons.location_on, size: 16, color: Color(0xFF9CA3AF)),
               const SizedBox(width: 4),
               SelectableText(
                 event.country,
-                style: TextStyle(color: Colors.grey[400]),
+                style: const TextStyle(color: Color(0xFF9CA3AF)),
               ),
             ],
           ),
@@ -110,13 +110,13 @@ class EventDetailCard extends StatelessWidget {
                 fit: BoxFit.contain,
                 placeholder: (context, url) => Container(
                   height: 400,
-                  color: Colors.grey[800],
-                  child: const Center(child: CircularProgressIndicator()),
+                  color: const Color(0xFF0B0E14),
+                  child: const Center(child: CircularProgressIndicator(color: Color(0xFFEAB308))),
                 ),
                 errorWidget: (context, url, error) => Container(
                   height: 400,
-                  color: Colors.grey[800],
-                  child: const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+                  color: const Color(0xFF0B0E14),
+                  child: const Icon(Icons.image_not_supported, size: 50, color: Color(0xFF9CA3AF)),
                 ),
               ),
             ),
@@ -125,35 +125,28 @@ class EventDetailCard extends StatelessWidget {
           // Description
           SelectableText(
             event.description,
-            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[300]),
+            style: const TextStyle(fontSize: 16, height: 1.5, fontWeight: FontWeight.w300, color: Color(0xFFD1D5DB)),
           ),
           const SizedBox(height: 12),
           // Impact analysis
           Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.blue[900]?.withOpacity(0.3),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.blue[800]!, width: 1),
+            width: double.infinity,
+            height: 1,
+            color: Colors.white24,
+          ),
+          const SizedBox(height: 12),
+          const SelectableText(
+            'Impact Analysis',
+            style: TextStyle(
+              fontWeight: FontWeight.w900,
+              fontSize: 18,
+              color: Colors.white,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SelectableText(
-                  'Impact Analysis',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.blue[300],
-                  ),
-                ),
-                const SizedBox(height: 8),
-                SelectableText(
-                  event.impactAnalysis,
-                  style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[300]),
-                ),
-              ],
-            ),
+          ),
+          const SizedBox(height: 8),
+          SelectableText(
+            event.impactAnalysis,
+            style: const TextStyle(fontSize: 16, height: 1.5, fontWeight: FontWeight.w300, color: Color(0xFFD1D5DB)),
           ),
         ],
       ),
@@ -174,6 +167,8 @@ class EventDetailCard extends StatelessWidget {
         return Colors.teal;
       case 'world_cup':
         return Colors.blue;
+      case 'athletics':
+        return Colors.lightBlue;
       default:
         return Colors.grey;
     }

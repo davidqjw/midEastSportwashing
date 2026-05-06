@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_screen.dart';
 import 'providers/event_provider.dart';
@@ -18,11 +19,12 @@ class MyApp extends StatelessWidget {
         title: 'Arab Sportswashing Timeline',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: const Color(0xFF0A0E27),
-          colorScheme: ColorScheme.dark(
-            primary: Colors.blue[400]!,
-            secondary: Colors.orange[400]!,
-            surface: const Color(0xFF1A1F3A),
+          scaffoldBackgroundColor: const Color(0xFF0B0E14),
+          textTheme: GoogleFonts.montserratTextTheme(ThemeData.dark().textTheme),
+          colorScheme: const ColorScheme.dark(
+            primary: Color(0xFFEAB308),
+            secondary: Color(0xFF6366F1),
+            surface: Color(0xFF171C26),
           ),
           useMaterial3: true,
         ),
