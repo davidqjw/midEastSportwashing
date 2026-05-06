@@ -20,6 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _selectedCountry;
   SportEvent? _selectedImpactEvent;
   bool? _isImpactPanelOpen;
+  Map<int, int> _flatIndexToSidebarIndex = {};
+  Map<String, int> _eventFlatIndex = {};
+  Map<int, int> _yearFlatIndex = {};
 
   @override
   void initState() {
@@ -44,16 +47,17 @@ class _HomeScreenState extends State<HomeScreen> {
       final bVisible = b.itemTrailingEdge.clamp(0.0, 1.0) - b.itemLeadingEdge.clamp(0.0, 1.0);
       return aVisible >= bVisible ? a : b;
     });
-    if (mostVisible.index != _activeYearIndex) {
+    final sidebarIndex = _flatIndexToSidebarIndex[mostVisible.index] ?? 0;
+    if (sidebarIndex != _activeYearIndex) {
       setState(() {
-        _activeYearIndex = mostVisible.index;
+        _activeYearIndex = sidebarIndex;
       });
     }
   }
 
-  void _scrollToYear(int year, List<int> sortedYears) {
-    final index = sortedYears.indexOf(year);
-    if (index != -1) {
+  void _scrollToYear(int year) {
+    final index = _yearFlatIndex[year];
+    if (index != null) {
       _itemScrollController.scrollTo(
         index: index,
         duration: const Duration(milliseconds: 500),
@@ -62,19 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void _scrollToEvent(String eventId, List<SportEvent> allEvents, List<int> sortedYears, Map<int, List<SportEvent>> eventsByYear) {
-    for (final event in allEvents) {
-      if (event.id == eventId) {
-        final yearIndex = sortedYears.indexOf(event.year);
-        if (yearIndex != -1) {
-          _itemScrollController.scrollTo(
-            index: yearIndex,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-        return;
-      }
+  void _scrollToEvent(String eventId) {
+    final index = _eventFlatIndex[eventId];
+    if (index != null) {
+      _itemScrollController.scrollTo(
+        index: index,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
@@ -151,6 +150,22 @@ class _HomeScreenState extends State<HomeScreen> {
           final filteredEvents = _filterEvents(allEvents);
           final eventsByYear = _groupByYear(filteredEvents);
           final sortedYears = eventsByYear.keys.toList()..sort();
+
+          final List<Object> flatItems = [];
+          _eventFlatIndex = {};
+          _yearFlatIndex = {};
+          _flatIndexToSidebarIndex = {};
+          for (int yi = 0; yi < sortedYears.length; yi++) {
+            final year = sortedYears[yi];
+            _yearFlatIndex[year] = flatItems.length;
+            _flatIndexToSidebarIndex[flatItems.length] = yi;
+            flatItems.add(year);
+            for (final event in eventsByYear[year]!) {
+              _eventFlatIndex[event.id] = flatItems.length;
+              _flatIndexToSidebarIndex[flatItems.length] = yi;
+              flatItems.add(event);
+            }
+          }
 
           final categories = allEvents.map((e) => e.category).toSet().toList()..sort();
           final countries = allEvents.map((e) => e.country).toSet().toList()..sort();
@@ -278,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               )
                                             : null,
                                         child: ElevatedButton(
-                                          onPressed: () => _scrollToYear(year, sortedYears),
+                                          onPressed: () => _scrollToYear(year),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: const Color(0xFF171C26),
                                             foregroundColor: isActive ? const Color(0xFFEAB308) : Colors.white,
@@ -314,91 +329,84 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemScrollController: _itemScrollController,
                               itemPositionsListener: _itemPositionsListener,
                               padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 40),
-                              itemCount: sortedYears.length,
+                              itemCount: flatItems.length,
                               itemBuilder: (context, index) {
-                                final year = sortedYears[index];
-                                final events = eventsByYear[year]!;
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Year title
-                                    Center(
-                                      child: ConstrainedBox(
-                                        constraints: const BoxConstraints(maxWidth: 1200),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 20),
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0xFFEAB308),
-                                                  borderRadius: BorderRadius.circular(20),
-                                                ),
-                                                child: Text(
-                                                  year.toString(),
-                                                  style: const TextStyle(
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Color(0xFF0B0E14),
-                                                  ),
+                                final item = flatItems[index];
+                                if (item is int) {
+                                  return Center(
+                                    child: ConstrainedBox(
+                                      constraints: const BoxConstraints(maxWidth: 1200),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 20),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFFEAB308),
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: Text(
+                                                item.toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xFF0B0E14),
                                                 ),
                                               ),
-                                              const SizedBox(width: 12),
-                                              Expanded(
-                                                child: Container(
-                                                  height: 2,
-                                                  color: const Color(0xFF2A3040),
-                                                ),
+                                            ),
+                                            const SizedBox(width: 12),
+                                            Expanded(
+                                              child: Container(
+                                                height: 2,
+                                                color: const Color(0xFF2A3040),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                    // Event cards for this year
-                                    ...events.map((event) => Padding(
-                                      padding: const EdgeInsets.only(bottom: 16),
-                                      child: Center(
-                                        child: ConstrainedBox(
-                                          constraints: const BoxConstraints(maxWidth: 1200),
-                                          child: EventDetailCard.buildSingleEvent(
-                                            event,
-                                            onRelatedEventTap: (eventId) {
-                                              setState(() {
-                                                _selectedCategory = null;
-                                                _selectedCountry = null;
-                                              });
-                                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                                final freshEventsByYear = _groupByYear(allEvents);
-                                                final freshSortedYears = freshEventsByYear.keys.toList()..sort();
-                                                _scrollToEvent(eventId, allEvents, freshSortedYears, freshEventsByYear);
-                                              });
-                                            },
-                                            onImpactTap: (event) {
-                                              setState(() {
-                                                if (_isImpactPanelOpen == true && _selectedImpactEvent?.id == event.id) {
-                                                  _isImpactPanelOpen = false;
-                                                  Future.delayed(const Duration(milliseconds: 300), () {
-                                                    if (mounted && _isImpactPanelOpen != true) {
-                                                      setState(() {
-                                                        _selectedImpactEvent = null;
-                                                      });
-                                                    }
+                                  );
+                                }
+                                final event = item as SportEvent;
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 16),
+                                  child: Center(
+                                    child: ConstrainedBox(
+                                      constraints: const BoxConstraints(maxWidth: 1200),
+                                      child: EventDetailCard.buildSingleEvent(
+                                        event,
+                                        onRelatedEventTap: (eventId) {
+                                          setState(() {
+                                            _selectedCategory = null;
+                                            _selectedCountry = null;
+                                          });
+                                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                                            _scrollToEvent(eventId);
+                                          });
+                                        },
+                                        onImpactTap: (tapEvent) {
+                                          setState(() {
+                                            if (_isImpactPanelOpen == true && _selectedImpactEvent?.id == tapEvent.id) {
+                                              _isImpactPanelOpen = false;
+                                              Future.delayed(const Duration(milliseconds: 300), () {
+                                                if (mounted && _isImpactPanelOpen != true) {
+                                                  setState(() {
+                                                    _selectedImpactEvent = null;
                                                   });
-                                                } else {
-                                                  _selectedImpactEvent = event;
-                                                  _isImpactPanelOpen = true;
                                                 }
                                               });
-                                            },
-                                            isImpactSelected: _isImpactPanelOpen == true && _selectedImpactEvent?.id == event.id,
-                                            allEvents: allEvents,
-                                          ),
-                                        ),
+                                            } else {
+                                              _selectedImpactEvent = tapEvent;
+                                              _isImpactPanelOpen = true;
+                                            }
+                                          });
+                                        },
+                                        isImpactSelected: _isImpactPanelOpen == true && _selectedImpactEvent?.id == event.id,
+                                        allEvents: allEvents,
                                       ),
-                                    )),
-                                  ],
+                                    ),
+                                  ),
                                 );
                               },
                             ),
