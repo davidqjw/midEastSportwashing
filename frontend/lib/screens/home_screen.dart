@@ -68,6 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xFF0B0E14),
         foregroundColor: Colors.white,
         elevation: 0,
+        scrolledUnderElevation: 8,
+        surfaceTintColor: const Color(0xFF2A3040),
         centerTitle: false,
       ),
       body: Consumer<EventProvider>(

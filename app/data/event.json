@@ -16,7 +16,7 @@
     },
     {
       "id": "abu-dhabi-f1-gp-2009",
-      "title": "First Abu Dhabi F1 Grand Prix",
+      "title": "Abu Dhabi F1 Grand Prix",
       "date": "2009-11-01",
       "category": "f1",
       "country": "UAE",
@@ -58,7 +58,7 @@
     {
       "id": "saudi-wwe-events-2014",
       "title": "Saudi Arabia Begins Hosting WWE Events",
-      "date": "2014-05-03",
+      "date": "2014-04-17",
       "category": "wrestling",
       "country": "Saudi Arabia",
       "description": "Saudi Arabia began hosting World Wrestling Entertainment (WWE) events, including annual major shows like Crown Jewel. This marked an important sign of Saudi Arabia's opening to Western entertainment and sports.",
@@ -99,7 +99,7 @@
     },
     {
       "id": "saudi-f1-gp-2021",
-      "title": "First Saudi Arabian F1 Grand Prix",
+      "title": "Saudi Arabian F1 Grand Prix",
       "date": "2021-12-05",
       "category": "f1",
       "country": "Saudi Arabia",
