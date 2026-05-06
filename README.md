@@ -69,13 +69,15 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ```bash
 cd frontend
+
+if first time run
 flutter pub get
 ```
 
 2. Run the app:
 
 ```bash
-flutter run -d chrome
+flutter run -d chrome --release
 ```
 
 ## API Endpoints
