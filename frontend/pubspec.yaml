@@ -47,6 +47,9 @@ dependencies:
   # Date formatting
   intl: ^0.19.0
 
+  # Scroll to index with lazy loading
+  scrollable_positioned_list: ^0.3.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

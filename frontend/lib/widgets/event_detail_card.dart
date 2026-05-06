@@ -24,14 +24,16 @@ class EventDetailCard extends StatelessWidget {
         return Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 1200),
-            child: _buildEventBlock(event),
+            child: EventDetailCard._buildEventBlock(event),
           ),
         );
       },
     );
   }
 
-  Widget _buildEventBlock(SportEvent event) {
+  static Widget buildSingleEvent(SportEvent event) => _buildEventBlock(event);
+
+  static Widget _buildEventBlock(SportEvent event) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -55,7 +57,7 @@ class EventDetailCard extends StatelessWidget {
                 child: SelectableText(
                   event.title,
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
@@ -71,7 +73,7 @@ class EventDetailCard extends StatelessWidget {
                   event.category.toUpperCase(),
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -123,7 +125,7 @@ class EventDetailCard extends StatelessWidget {
           // Description
           SelectableText(
             event.description,
-            style: TextStyle(fontSize: 14, height: 1.5, color: Colors.grey[300]),
+            style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[300]),
           ),
           const SizedBox(height: 12),
           // Impact analysis
@@ -141,14 +143,14 @@ class EventDetailCard extends StatelessWidget {
                   'Impact Analysis',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 18,
                     color: Colors.blue[300],
                   ),
                 ),
                 const SizedBox(height: 8),
                 SelectableText(
                   event.impactAnalysis,
-                  style: TextStyle(fontSize: 13, height: 1.5, color: Colors.grey[300]),
+                  style: TextStyle(fontSize: 16, height: 1.5, color: Colors.grey[300]),
                 ),
               ],
             ),
@@ -158,7 +160,7 @@ class EventDetailCard extends StatelessWidget {
     );
   }
 
-  Color _getCategoryColor(String category) {
+  static Color _getCategoryColor(String category) {
     switch (category.toLowerCase()) {
       case 'soccer':
         return Colors.green;

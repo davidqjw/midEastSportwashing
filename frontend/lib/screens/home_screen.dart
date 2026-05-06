@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../providers/event_provider.dart';
-import '../widgets/timeline_widget.dart';
 import '../widgets/event_detail_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int? _selectedYear;
+  final ItemScrollController _itemScrollController = ItemScrollController();
 
   @override
   void initState() {
@@ -22,21 +22,24 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _scrollToYear(int year, List<int> sortedYears) {
+    final index = sortedYears.indexOf(year);
+    if (index != -1) {
+      _itemScrollController.scrollTo(
+        index: index,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          margin: const EdgeInsets.only(top: 8),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          decoration: BoxDecoration(
-            color: const Color(0xFF1A1F3A),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: const SelectableText(
-            'Arab Sportswashing Timeline',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
+        title: const SelectableText(
+          'Arab Sportswashing Timeline',
+          style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color(0xFF0A0E27),
         foregroundColor: Colors.white,
@@ -82,64 +85,99 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           final eventsByYear = provider.getEventsByYear();
+          final sortedYears = eventsByYear.keys.toList()..sort();
 
-          return Stack(
+          return Row(
             children: [
-              // Main content area (event blocks)
-              _selectedYear != null && eventsByYear[_selectedYear] != null
-                  ? EventDetailCard(
-                      events: eventsByYear[_selectedYear]!,
-                      onClose: () {
-                        setState(() {
-                          _selectedYear = null;
-                        });
-                      },
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        gradient: RadialGradient(
-                          center: Alignment.center,
-                          radius: 1.0,
-                          colors: [
-                            const Color(0xFF0F1429),
-                            const Color(0xFF0A0E27),
-                          ],
+              // Left sidebar - year buttons
+              Container(
+                width: 80,
+                color: const Color(0xFF0F1429),
+                child: ListView(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  children: sortedYears.map((year) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      child: ElevatedButton(
+                        onPressed: () => _scrollToYear(year, sortedYears),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF1A1F3A),
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(color: Colors.grey[700]!, width: 1),
+                          ),
+                        ),
+                        child: Text(
+                          year.toString(),
+                          style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.timeline,
-                              size: 80,
-                              color: Colors.grey[800],
-                            ),
-                            const SizedBox(height: 16),
-                            Text(
-                              'Select a year from the timeline below',
-                              style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.grey[600],
+                    );
+                  }).toList(),
+                ),
+              ),
+              // Main content - all events
+              Expanded(
+                child: ScrollablePositionedList.builder(
+                  itemScrollController: _itemScrollController,
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 40),
+                  itemCount: sortedYears.length,
+                  itemBuilder: (context, index) {
+                    final year = sortedYears[index];
+                    final events = eventsByYear[year]!;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Year title
+                        Center(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 1200),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 20),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue[800],
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      year.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Container(
+                                      height: 2,
+                                      color: Colors.grey[800],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-              // Timeline at bottom (floating on top)
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: TimelineWidget(
-                  eventsByYear: eventsByYear,
-                  onYearTap: (year) {
-                    setState(() {
-                      _selectedYear = year;
-                    });
+                        // Event cards for this year
+                        ...events.map((event) => Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Center(
+                            child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxWidth: 1200),
+                              child: EventDetailCard.buildSingleEvent(event),
+                            ),
+                          ),
+                        )),
+                      ],
+                    );
                   },
-                  selectedYear: _selectedYear,
                 ),
               ),
             ],
