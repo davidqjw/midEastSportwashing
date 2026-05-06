@@ -1,13 +1,10 @@
 
 
 @echo off
-title Arab Sportswashing Timeline
+title Arab Sportswashing Timeline (Production)
 
-echo Starting backend (FastAPI)...
-start "Backend" cmd /k "cd /d %~dp0 && venv\Scripts\activate && uvicorn main:app --reload --port 8000"
-
-echo Starting frontend (Flutter Web)...
-start "Frontend" cmd /k "cd /d %~dp0\frontend && flutter run -d chrome"
-
-echo Both services launched.
-pause
+echo Starting server...
+cd /d %~dp0
+call venv\Scripts\activate
+start http://localhost:8000
+uvicorn main:app --port 8000

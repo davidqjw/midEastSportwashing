@@ -55,7 +55,7 @@ cd frontend && flutter pub get
 
 ### Development mode
 
-Double-click `start.bat`, or run manually:
+Double-click `start_dev.bat`, or run manually:
 
 ```bash
 # Terminal 1 - Backend
@@ -69,7 +69,7 @@ flutter run -d chrome
 
 ### Production mode (pre-built)
 
-Double-click `start-prod.bat`, or run manually:
+Double-click `start.bat`, or run manually:
 
 ```bash
 ./venv/Scripts/activate
