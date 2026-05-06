@@ -407,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeOutCubic,
-                      width: _isImpactPanelOpen == true ? 440 : 0,
+                      width: _isImpactPanelOpen == true ? 400 : 0,
                       color: const Color(0xFF171C26),
                       child: _selectedImpactEvent != null
                           ? SingleChildScrollView(
@@ -442,7 +442,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   SelectableText(
                                     _selectedImpactEvent!.impactAnalysis,
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       height: 1.6,
                                       fontWeight: FontWeight.w300,
                                       color: Color(0xFFD1D5DB),
