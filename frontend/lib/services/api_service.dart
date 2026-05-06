@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import '../models/sport_event.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:8000/api';
+  static const String host = 'http://localhost:8000';
+  static const String baseUrl = '$host/api';
 
   Future<List<SportEvent>> getEvents({
     String? category,

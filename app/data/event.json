@@ -8,7 +8,7 @@
       "country": "UAE",
       "description": "Abu Dhabi United Group acquired Manchester City Soccer Club, marking the beginning of Gulf sovereign wealth funds entering European soccer. This acquisition brought unprecedented financial support to the club.",
       "impact_analysis": "Through massive financial investment, Manchester City transformed from a mid-table Premier League team to a European soccer powerhouse, winning multiple Premier League titles and the Champions League. This became one of the most successful cases of Gulf states acquiring European soccer clubs, pioneering a new model of sportswashing.",
-      "image_url": "https://example.com/man-city-2008.jpg",
+      "image_url": "/static/image/man_city_takeover_2008/cover.jpg",
       "related_events": [
         "psg-takeover-2011",
         "newcastle-takeover-2021"
@@ -22,7 +22,7 @@
       "country": "UAE",
       "description": "Yas Marina Circuit hosted the inaugural F1 Abu Dhabi Grand Prix, the first F1 night race in the Middle East. The circuit cost over $1 billion to build and features world-class facilities.",
       "impact_analysis": "Positioned Abu Dhabi as an international sports event hub and luxury tourism destination. The annual F1 event attracts hundreds of millions of viewers globally, significantly enhancing UAE's international image and soft power. The race typically serves as the F1 season finale, holding strategic importance.",
-      "image_url": "https://example.com/abu-dhabi-f1-2009.jpg",
+      "image_url": "/static/image/abu_dhabi_f1_gp_2009/cover.jpg",
       "related_events": [
         "abu-dhabi-ufc-2010",
         "saudi-f1-gp-2021"
@@ -36,7 +36,7 @@
       "country": "UAE",
       "description": "Abu Dhabi established a long-term partnership with UFC (Ultimate Fighting Championship), beginning to host a series of mixed martial arts events. Abu Dhabi Department of Culture and Tourism became one of UFC's major sponsors.",
       "impact_analysis": "Has hosted over 20 UFC events since 2010, bringing top-tier mixed martial arts to the Middle East. This not only elevated Abu Dhabi's status as a sports tourism destination but also demonstrated UAE's openness to modern sports culture.",
-      "image_url": "https://example.com/abu-dhabi-ufc-2010.jpg",
+      "image_url": "/static/image/abu_dhabi_ufc_2010/cover.png",
       "related_events": [
         "abu-dhabi-f1-gp-2009"
       ]
@@ -49,7 +49,7 @@
       "country": "Qatar",
       "description": "Qatar Sports Investments (QSI) acquired Paris Saint-Germain Soccer Club for approximately 100 million euros. They purchased 70% stake in 2011 and completed full acquisition in 2012, making it Qatar's flagship investment in European soccer.",
       "impact_analysis": "Transformed PSG from an ordinary French club to a global soccer powerhouse, signing superstars like Neymar, Messi, and Mbappé. The club became a symbol of Qatar's soft power, building momentum for the 2022 World Cup. Total investment exceeded 1.5 billion euros, fundamentally changing the European soccer transfer market landscape.",
-      "image_url": "https://example.com/psg-2011.jpg",
+      "image_url": "/static/image/psg_takeover_2011/cover.jpg",
       "related_events": [
         "man-city-takeover-2008",
         "qatar-world-cup-2022"
@@ -63,7 +63,7 @@
       "country": "Saudi Arabia",
       "description": "Saudi Arabia began hosting World Wrestling Entertainment (WWE) events, including annual major shows like Crown Jewel. This marked an important sign of Saudi Arabia's opening to Western entertainment and sports.",
       "impact_analysis": "Brought American professional wrestling entertainment to conservative Saudi society, attracting international attention. Despite controversies regarding human rights and gender equality, it demonstrated Saudi Arabia's willingness for social reform under Crown Prince Mohammed bin Salman's leadership. WWE signed a 10-year multi-million dollar partnership with Saudi Arabia.",
-      "image_url": "https://example.com/saudi-wwe-2014.jpg",
+      "image_url": "/static/image/saudi_wwe_events_2014/cover.png",
       "related_events": [
         "saudi-f1-gp-2021",
         "saudi-pro-league-2023"
@@ -77,7 +77,7 @@
       "country": "Saudi Arabia",
       "description": "Saudi Public Investment Fund (PIF)-led consortium acquired 80% stake in Newcastle United for over 300 million pounds, ending Mike Ashley's unpopular ownership era. The deal sparked strong protests from human rights organizations.",
       "impact_analysis": "Marked Saudi Arabia's major expansion into European soccer, a key component of Vision 2030 strategy. Despite sportswashing accusations, the deal was approved by the Premier League. Newcastle became one of the world's wealthiest soccer clubs, beginning large-scale recruitment to rebuild the team.",
-      "image_url": "https://example.com/newcastle-2021.jpg",
+      "image_url": "/static/image/newcastle_takeover_2021/cover.jpg",
       "related_events": [
         "man-city-takeover-2008",
         "saudi-pro-league-2023"
@@ -91,7 +91,7 @@
       "country": "Saudi Arabia",
       "description": "Saudi Arabia hosted its inaugural F1 Grand Prix at Jeddah Corniche Circuit. It is one of the world's fastest street circuits and Saudi Arabia's first F1 event.",
       "impact_analysis": "Brought F1 to Saudi Arabia, enhancing international image and tourism appeal. The event is a key part of Vision 2030 plan, aiming to position Saudi Arabia as a global sports and entertainment hub. Despite human rights controversies, F1 signed a long-term partnership with Saudi Arabia.",
-      "image_url": "https://example.com/saudi-f1-2021.jpg",
+      "image_url": "/static/image/saudi_f1_gp_2021/cover.jpg",
       "related_events": [
         "abu-dhabi-f1-gp-2009",
         "saudi-wwe-events-2014"
@@ -105,7 +105,7 @@
       "country": "Saudi Arabia",
       "description": "Saudi Public Investment Fund (PIF) funded the creation of LIV Golf tour, with legendary golfer Greg Norman as CEO. LIV attracted top players with massive prize money, challenging the traditional PGA Tour's monopoly.",
       "impact_analysis": "Shook the golf world, sparking intense debate about sportswashing. In June 2023, LIV Golf and PGA Tour announced a merger, marking Saudi Arabia's decisive influence in global golf. This is viewed as one of the most successful sportswashing cases, demonstrating Saudi Arabia's financial power and strategic vision.",
-      "image_url": "https://example.com/liv-golf-2022.jpg",
+      "image_url": "/static/image/liv_golf_launch_2022/cover.jpg",
       "related_events": [
         "saudi-pro-league-2023"
       ]
@@ -118,7 +118,7 @@
       "country": "Qatar",
       "description": "Qatar hosted the 2022 FIFA World Cup, the first World Cup held in the Arab and Muslim world, and the first held in the Northern Hemisphere winter. Qatar invested over $220 billion in infrastructure development.",
       "impact_analysis": "Widely regarded as the largest-scale sportswashing case in history. Despite massive controversies regarding human rights, labor rights, and LGBTQ+ rights, the World Cup was successfully held, attracting 5 billion viewers globally. Qatar significantly enhanced its international visibility and influence through this event, achieving its soft power strategic goals.",
-      "image_url": "https://example.com/qatar-world-cup-2022.jpg",
+      "image_url": "/static/image/qatar_world_cup_2022/cover.jpg",
       "related_events": [
         "psg-takeover-2011"
       ]
@@ -131,7 +131,7 @@
       "country": "Saudi Arabia",
       "description": "Saudi Pro League invested over $1 billion in summer 2023, signing world-class stars including Cristiano Ronaldo (joined January 2023), Neymar, Benzema, Kanté, Mané, and others. This was the largest recruitment operation in a single market in soccer history.",
       "impact_analysis": "Completely changed the global soccer transfer market landscape, demonstrating Saudi Arabia's financial power and ambition. The Saudi league leaped from obscurity to global spotlight, attracting hundreds of millions of viewers. This is a core part of Vision 2030 strategy, aiming to position Saudi Arabia as a global soccer hub. Despite sportswashing accusations, it successfully attracted top players and sponsors.",
-      "image_url": "https://example.com/saudi-pro-league-2023.jpg",
+      "image_url": "/static/image/saudi_pro_league_2023/cover.jpg",
       "related_events": [
         "newcastle-takeover-2021",
         "liv-golf-launch-2022"

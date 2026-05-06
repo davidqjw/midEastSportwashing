@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/sport_event.dart';
+import '../services/api_service.dart';
 
 class EventDetailCard extends StatelessWidget {
   final List<SportEvent> events;
@@ -20,7 +21,12 @@ class EventDetailCard extends StatelessWidget {
       separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemBuilder: (context, index) {
         final event = events[index];
-        return _buildEventBlock(event);
+        return Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: _buildEventBlock(event),
+          ),
+        );
       },
     );
   }
@@ -93,22 +99,23 @@ class EventDetailCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           // Image
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: CachedNetworkImage(
-              imageUrl: event.imageUrl,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => Container(
-                height: 200,
-                color: Colors.grey[800],
-                child: const Center(child: CircularProgressIndicator()),
-              ),
-              errorWidget: (context, url, error) => Container(
-                height: 200,
-                color: Colors.grey[800],
-                child: const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+          Center(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: CachedNetworkImage(
+                imageUrl: '${ApiService.host}${event.imageUrl}',
+                height: 400,
+                fit: BoxFit.contain,
+                placeholder: (context, url) => Container(
+                  height: 400,
+                  color: Colors.grey[800],
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 400,
+                  color: Colors.grey[800],
+                  child: const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+                ),
               ),
             ),
           ),

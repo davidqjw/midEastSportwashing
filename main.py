@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.api.events import router as events_router
 
 app = FastAPI(title="Arab Sportswashing Timeline API")
@@ -12,6 +13,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Static event images
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Include routers
 app.include_router(events_router)
