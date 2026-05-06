@@ -69,8 +69,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void _scrollToEvent(String eventId) {
     final index = _eventFlatIndex[eventId];
     if (index != null) {
+      final isFirstInYear = index > 0 && _yearFlatIndex.values.contains(index - 1);
       _itemScrollController.scrollTo(
-        index: index,
+        index: isFirstInYear ? index - 1 : index,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
