@@ -37,51 +37,57 @@ app/data/event.json     # Event data source
 
 ## Setup and Run
 
-### Backend (FastAPI)
+### Prerequisites
 
-1. Create and activate virtual environment:
+- Python 3.10+
+- Flutter SDK
+- Git
+
+### Install dependencies (first time only)
 
 ```bash
 python -m venv venv
 ./venv/Scripts/activate  # Windows
 source venv/bin/activate # macOS/Linux
-```
-
-2. Install dependencies:
-
-```bash
 pip install -r requirements.txt
+cd frontend && flutter pub get
 ```
 
-3. Run the server:
+### Development mode
+
+Double-click `start.bat`, or run manually:
 
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+# Terminal 1 - Backend
+./venv/Scripts/activate
+uvicorn main:app --reload --port 8000
+
+# Terminal 2 - Frontend (with hot reload)
+cd frontend
+flutter run -d chrome
 ```
 
-4. Access API documentation (optional) :
+### Production mode (pre-built)
 
-- http://localhost:8000/docs
+Double-click `start-prod.bat`, or run manually:
 
-### Frontend (Flutter)
+```bash
+./venv/Scripts/activate
+uvicorn main:app --port 8000
+```
 
-1. Enter the frontend project:
+Then visit http://localhost:8000
+
+If you changed frontend code, rebuild before starting:
 
 ```bash
 cd frontend
+flutter build web
 ```
 
-2. Install dependencies on first run:
+### API documentation
 
-```bash
-flutter pub get
-```
-
-3. Run the app:
-
-```bash
-flutter run -d chrome --release
-```
+- http://localhost:8000/docs
 
 ## API Endpoints
 
