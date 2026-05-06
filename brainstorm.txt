@@ -1,0 +1,11 @@
+
+develop a website
+
+In the past decades, when talking about Arab world, people are reminding oil, protests, and political collapse. However, Arab countries trying to convert this impression recently. About 15 years ago, gulf state-backed sovereign wealth funds acquiring European soccer clubs. Manchester City was one of the most successful example. Massive financial investment enabled the club to transform from a mid-table Premier League side into one of the most competitive teams in the league over the past decade. Saudi Arabia’s football investments, the Qatar World Cup, and the Saudi Arabian Grand Prix in Formula 1, which began in 2021, all demonstrate that Arab states are seeking to transform their image and reposition themselves on the global stage.
+
+In this project, I would like to develop an interactive website about "sportswashing" in the Arab world. The website will shows all major f Arab world sports event on a interactive timeline, and shows a description of each event and its influence.
+
+flutter, front end,
+
+backend? fastapi? never used i guess this better,
+
